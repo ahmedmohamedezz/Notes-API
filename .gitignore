@@ -1,0 +1,20 @@
+# Virtual Environments
+.venv/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+db.sqlite3
+.env
+local_settings.py
+media/
+
+# Distribution / packaging
+node_modules/
+dist/
+build/
