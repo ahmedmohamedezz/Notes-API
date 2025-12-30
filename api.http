@@ -1,0 +1,27 @@
+### list notes
+
+GET http://localhost:8000/notes/ HTTP/1.1
+content-type: application/json
+
+### create note
+
+POST http://localhost:8000/notes/ HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Third Note",
+    "content": "lorem ipsum 3"
+}
+
+### partial update note
+
+PATCH http://localhost:8000/notes/2/ HTTP/1.1
+content-type: application/json
+
+{
+    "content": "lorem ipsum 00001"
+}
+
+### delete note
+
+DELETE http://localhost:8000/notes/1/ HTTP/1.1

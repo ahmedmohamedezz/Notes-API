@@ -1,8 +1,7 @@
 from django.http import JsonResponse
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 
 from notes.models import Note
 from notes.serializers import NotesSerializer
@@ -10,16 +9,11 @@ from notes.serializers import NotesSerializer
 
 # Create your views here.
 def index(request):
-    return JsonResponse({"message": "Hello, world!"})
+    return JsonResponse({"message": "Welcome to Notes API"})
 
 
-@api_view(["GET", "POST"])
-def notes_view(request):
-    if request.method == "GET":
-        notes = Note.objects.all()
-        return Response(NotesSerializer(notes, many=True).data)
-    else:
-        serializer = NotesSerializer(request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=HTTP_201_CREATED)
+# 3. ViewSets (actions instead of HTTP methods of APIView)
+class NotesViewSet(viewsets.ModelViewSet):
+    queryset = Note.objects.all()
+    serializer_class = NotesSerializer
+    permission_classes = [AllowAny]
