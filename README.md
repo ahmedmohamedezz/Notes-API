@@ -131,10 +131,54 @@ Every future optimization (pagination, indexing, search, caching, concurrency tu
 
 ---
 
-|Metric         |Result         |
-|---            |------         |
-| Avg Latency   | ~50ms         |
-| Throughput    | ~100 req/s    |
-| Error Rate    | ~0%           |
+| Metric      | Result     |
+| ----------- | ---------- |
+| Avg Latency | ~50ms      |
+| Throughput  | ~100 req/s |
+| Error Rate  | ~0%        |
 
+---
 
+# Version 2 – Validation & Error Handling
+
+### Goals
+
+- Ensure API is safe and predictable
+
+- Validate input data and return meaningful HTTP errors
+
+- Prevent invalid data from entering the database
+
+#### Changes from V1
+
+- Field-level validation added for title and content
+
+- Proper HTTP status codes for invalid input
+
+- Predictable error responses
+
+- Still no pagination, indexing, authentication, or caching
+
+---
+
+### Example Error Response
+
+- POSTing empty data:
+- 
+```json
+{
+    "title": ["Title cannot be empty."],
+    "content": ["Content cannot be empty."]
+}
+```
+
+- Status code: `400 Bad Request`
+
+- Generated automatically by DRF based on field definitions
+
+### Summary
+
+- Version 2 improves reliability and correctness without changing performance significantly:
+  - Prevents empty or invalid notes
+  - Provides clear, consistent error messages
+  - Sets foundation for further improvements (authentication, pagination, search)
